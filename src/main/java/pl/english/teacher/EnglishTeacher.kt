@@ -3,19 +3,28 @@ package pl.english.teacher
 import java.io.FileWriter
 
 fun main(args: Array<String>) {
+    val wordTranslator = DikiTranlator()
+
     // todo attach header to file
     FileWriter("englishWords.csv", true).use { outputFile ->
         while (true) {
-            print("Type english word: ")
-            var englishWord = readLine()
+            print("Type word: ")
+            val userWord = readLine() ?: continue
 
-            print("Type polish word: ")
-            var polishWord = readLine()
-
-            if ("exit".equals(englishWord?.toLowerCase()) || "exit".equals(polishWord?.toLowerCase())) {
-                return;
+            if ("exit".equals(userWord.toLowerCase())) {
+                return
             }
-            outputFile.write("$englishWord;$polishWord\n")
+            val translations = wordTranslator.translate(userWord)
+
+            println("Possible translations:")
+            translations.forEachIndexed { index, value ->
+                println("$index - $value")
+            }
+            var chosenTranslationIndex = readLine() ?: continue
+            if (chosenTranslationIndex.isBlank()) continue
+
+            val chosenTranslation = translations.get(chosenTranslationIndex.toInt())
+            outputFile.write("$userWord;$chosenTranslation\n")
 
             println("---------------------------------------------------")
         }
