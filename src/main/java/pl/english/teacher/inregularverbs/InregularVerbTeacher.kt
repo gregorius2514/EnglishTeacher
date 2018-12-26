@@ -15,31 +15,45 @@ import java.util.*
 // 5. mozliwosc nauki slowek, ktore sprawiaja najwiecej problemow
 // 6. tryb zaawansowany gdzie kolejnosc form (I, II, II) sa w innej kolejnosci na ekranie
 // 7. dodanie sprawdzania wprowadzonych slowek z ignore_case
-fun main() {
+fun main(args: Array<String>) {
     val inregularVerbs = InregularVerbParser().parseFile(Paths.get("inregularVerbs.csv"))
+    val changedInregularVerbs = ArrayList<InregularVerb>()
 
     val randomizer = Random(currentTimeMillis())
-    for (i in 1..3) {
-        var randomIndex = randomizer.nextInt(inregularVerbs.size)
-        var randominregularVerb = inregularVerbs.get(randomIndex)
+    for (i in inregularVerbs) {
+        val randomIndex = randomizer.nextInt(inregularVerbs.size)
+        val randomInregularVerb = inregularVerbs[randomIndex]
 
-        println(randominregularVerb)
+        println(randomInregularVerb)
 
-        println(randominregularVerb.polishTranslation)
+        println(randomInregularVerb.polishTranslation)
         print("Type first form: ")
-        val firstForm = readLine()
+        val firstForm = readUserInput()
         print("Type second form: ")
-        val secondForm = readLine()
+        val secondForm = readUserInput()
         print("Type third form: ")
-        val thirdForm = readLine()
+        val thirdForm = readUserInput()
 
-        if (randominregularVerb.firstForm.equals(firstForm)) println("First form was correct")
-        else println("First form was incorrect")
+        randomInregularVerb.changeAnswerCorrectness(InregularVerb(firstForm, secondForm, thirdForm))
+        changedInregularVerbs.add(randomInregularVerb)
 
-        if (randominregularVerb.secondForm.equals(secondForm)) println("Second form was correct")
-        else println("Second form was incorrect")
+        print("Want to continue teaching? [T/F] or to print statistics press [S]: ")
+        val teachingMenu = readLine() ?: ""
 
-        if (randominregularVerb.thirdForm.equals(thirdForm)) println("Third form was correct")
-        else println("Third form was incorrect")
+        if (teachingMenu.toUpperCase() == "S") {
+            changedInregularVerbs.forEach { record ->
+                println(record)
+            }
+        } else if (teachingMenu.toUpperCase() == "F") break
+
+        clearConsole()
     }
 }
+
+fun readUserInput() = readLine() ?: ""
+
+fun clearConsole() {
+    // FIXME nie dziala
+    Runtime.getRuntime().exec("clear")
+}
+

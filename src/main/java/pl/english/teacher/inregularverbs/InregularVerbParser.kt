@@ -7,15 +7,14 @@ import java.nio.file.Path
 class InregularVerbParser : CsvParser<InregularVerb> {
 
     override fun parseFile(csvFilePath: Path): List<InregularVerb> {
-        require(csvFilePath != null) { "Expected non-null csvFilePath" }
-
         FileReader(csvFilePath.toFile()).use { inregularVerbFile ->
             return inregularVerbFile
                     .readLines()
                     .map { csvRow ->
                         val inregularVerbRow = csvRow.split(",")
-                        InregularVerb(inregularVerbRow[0], inregularVerbRow[1],
-                                inregularVerbRow[2], inregularVerbRow[3])
+                        InregularVerb(inregularVerbRow[2], inregularVerbRow[3],
+                                inregularVerbRow[4], inregularVerbRow[5], inregularVerbRow[0],
+                                inregularVerbRow[1])
                     }
                     .toCollection(ArrayList())
         }
