@@ -16,7 +16,7 @@ import java.util.*
 // 6. tryb zaawansowany gdzie kolejnosc form (I, II, II) sa w innej kolejnosci na ekranie
 // 7. dodanie sprawdzania wprowadzonych slowek z ignore_case
 fun main(args: Array<String>) {
-    val inregularVerbs = InregularVerbParser().parseFile(Paths.get("inregularVerbs.csv"))
+    val inregularVerbs = InregularVerbParser(",").parseFile(Paths.get("inregularVerbs.csv"))
     val changedInregularVerbs = ArrayList<InregularVerb>()
 
     val randomizer = Random(currentTimeMillis())
