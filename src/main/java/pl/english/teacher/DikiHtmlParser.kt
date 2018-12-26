@@ -13,6 +13,7 @@ class DikiTranlator : LanguageTranslator {
     private val translationPositionIndex = 1
 
     override fun translate(wordToTranslate: String): ArrayList<String> {
+        require(!wordToTranslate.isBlank()) { "Expected non-empty wordToTranslate" }
         val translatedWords = ArrayList<String>()
 
         Jsoup.connect("$dikiTranslatorUrl$wordToTranslate").get().run {

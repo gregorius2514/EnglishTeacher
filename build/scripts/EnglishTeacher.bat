@@ -63,7 +63,7 @@ set CMD_LINE_ARGS=%*
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\EnglishTeacher.jar;%APP_HOME%\lib\guava-23.0.jar;%APP_HOME%\lib\jsoup-1.10.3.jar;%APP_HOME%\lib\jsr305-1.3.9.jar;%APP_HOME%\lib\error_prone_annotations-2.0.18.jar;%APP_HOME%\lib\j2objc-annotations-1.1.jar;%APP_HOME%\lib\animal-sniffer-annotations-1.14.jar
+set CLASSPATH=%APP_HOME%\lib\EnglishTeacher.jar;%APP_HOME%\lib\guava-23.0.jar;%APP_HOME%\lib\jsoup-1.10.3.jar;%APP_HOME%\lib\spring-boot-dependencies-2.1.1.RELEASE.pom;%APP_HOME%\lib\kotlin-stdlib-jdk8-1.3.11.jar;%APP_HOME%\lib\jsr305-1.3.9.jar;%APP_HOME%\lib\error_prone_annotations-2.0.18.jar;%APP_HOME%\lib\j2objc-annotations-1.1.jar;%APP_HOME%\lib\animal-sniffer-annotations-1.14.jar;%APP_HOME%\lib\kotlin-stdlib-jdk7-1.3.11.jar;%APP_HOME%\lib\kotlin-stdlib-1.3.11.jar;%APP_HOME%\lib\kotlin-stdlib-common-1.3.11.jar;%APP_HOME%\lib\annotations-13.0.jar
 
 @rem Execute EnglishTeacher
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %ENGLISH_TEACHER_OPTS%  -classpath "%CLASSPATH%" App %CMD_LINE_ARGS%
