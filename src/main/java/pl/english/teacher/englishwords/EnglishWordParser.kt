@@ -2,10 +2,10 @@ package pl.english.teacher.englishwords
 
 import pl.english.teacher.CsvParser
 import java.io.FileReader
+import java.io.FileWriter
 import java.nio.file.Path
-import java.nio.file.Paths
 
-class EnglishWordParser (val csvSeparator:String) : CsvParser<EnglishWord> {
+class EnglishWordParser(val csvSeparator: String) : CsvParser<EnglishWord> {
 
     override fun parseFile(csvFilePath: Path): List<EnglishWord> {
         FileReader(csvFilePath.toFile()).use { englishWordFile ->
@@ -16,6 +16,12 @@ class EnglishWordParser (val csvSeparator:String) : CsvParser<EnglishWord> {
                         EnglishWord(englishWord[0], englishWord[1])
                     }
                     .toCollection(ArrayList())
+        }
+    }
+
+    fun storeWord(englishWord: EnglishWord) {
+        FileWriter("englishWords.csv", true).use { outputFile ->
+            outputFile.write(englishWord.toCsvFormat(csvSeparator))
         }
     }
 }

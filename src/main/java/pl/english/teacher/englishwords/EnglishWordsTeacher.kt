@@ -1,12 +1,11 @@
-package pl.english.teacher
+package pl.english.teacher.englishwords
 
-import java.io.FileWriter
+import pl.english.teacher.DikiTranlator
 
 fun main(args: Array<String>) {
     val wordTranslator = DikiTranlator()
+    val englishWordService = EnglishWordService()
 
-    // todo attach header to file
-    FileWriter("englishWords.csv", true).use { outputFile ->
         while (true) {
             print("Type word: ")
             val userWord = readLine() ?: continue
@@ -23,11 +22,10 @@ fun main(args: Array<String>) {
             var chosenTranslationIndex = readLine() ?: continue
             if (chosenTranslationIndex.isBlank()) continue
 
-            val chosenTranslation = translations.get(chosenTranslationIndex.toInt())
-            outputFile.write("$userWord;$chosenTranslation\n")
+            val translation = translations.get(chosenTranslationIndex.toInt())
+            englishWordService.storeWord(EnglishWord(userWord, translation))
 
             println("---------------------------------------------------")
         }
-    }
 
 }

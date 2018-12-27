@@ -1,7 +1,6 @@
 package pl.english.teacher.inregularverbs
 
 import java.lang.System.currentTimeMillis
-import java.nio.file.Paths
 import java.util.*
 
 //TODO
@@ -16,8 +15,9 @@ import java.util.*
 // 6. tryb zaawansowany gdzie kolejnosc form (I, II, II) sa w innej kolejnosci na ekranie
 // 7. dodanie sprawdzania wprowadzonych slowek z ignore_case
 fun main(args: Array<String>) {
-    val inregularVerbs = InregularVerbParser(",").parseFile(Paths.get("inregularVerbs.csv"))
+    val inregularVerbService = InregularVerbService()
     val changedInregularVerbs = ArrayList<InregularVerb>()
+    val inregularVerbs = inregularVerbService.getAllInregularVerbs()
 
     val randomizer = Random(currentTimeMillis())
     for (i in inregularVerbs) {
