@@ -5,15 +5,14 @@ import java.nio.file.Paths
 class EnglishWordService {
 
     private val englishWordParser = EnglishWordFactory().createParser()
-    private val englishWords: List<EnglishWord> by lazy {
-        englishWordParser.parseFile(Paths.get("englishWords.csv"))
-    }
 
-    fun getAllEnglishWords() = englishWords
+    fun getAllEnglishWords() = englishWordParser.parseFile(Paths.get("englishWords.csv"))
 
-    fun storeWord(englishWord: EnglishWord) {
+    fun storeWord(englishWord: EnglishWord): List<EnglishWord> {
         englishWordParser.storeWord(englishWord)
+        return getAllEnglishWords()
     }
+
 }
 
 
