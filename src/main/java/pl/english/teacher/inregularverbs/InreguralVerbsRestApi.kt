@@ -1,9 +1,6 @@
 package pl.english.teacher.inregularverbs
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/inregularverbs")
@@ -16,7 +13,7 @@ class InreguralVerbsRestApi {
         return inregularVerbService.getAllInregularVerbs()
     }
 
-    @GetMapping("/check")
+    @PostMapping("/check")
     fun checkInregularVerb(@RequestBody inregularVerbToCheck: InregularVerb) : InregularVerb {
         // todo metoda wymaga refactoringu
 
