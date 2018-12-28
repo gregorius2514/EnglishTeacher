@@ -3,7 +3,7 @@ package pl.english.teacher.inregularverbs
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/inregularverbs")
+@RequestMapping("/inregularverb")
 class InreguralVerbsRestApi {
 
     val inregularVerbService = InregularVerbService()

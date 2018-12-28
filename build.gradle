@@ -45,7 +45,7 @@ repositories {
 
 
 dependencies {
-    implementation('org.springframework.boot:spring-boot-starter-security')
+//    implementation('org.springframework.boot:spring-boot-starter-security')
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.boot:spring-boot-starter-webflux')
     implementation('com.fasterxml.jackson.module:jackson-module-kotlin')
@@ -54,7 +54,7 @@ dependencies {
     runtimeOnly('org.springframework.boot:spring-boot-devtools')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('io.projectreactor:reactor-test')
-    testImplementation('org.springframework.security:spring-security-test')
+//    testImplementation('org.springframework.security:spring-security-test')
 
     compile 'com.google.guava:guava:23.0'
     compile 'org.jsoup:jsoup:1.10.3'

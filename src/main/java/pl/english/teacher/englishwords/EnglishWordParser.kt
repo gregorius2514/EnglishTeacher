@@ -21,7 +21,7 @@ class EnglishWordParser(val csvSeparator: String) : CsvParser<EnglishWord> {
 
     fun storeWord(englishWord: EnglishWord) {
         FileWriter("englishWords.csv", true).use { outputFile ->
-            outputFile.write(englishWord.toCsvFormat(csvSeparator))
+            outputFile.write(englishWord.toCsvFormat(csvSeparator) + "\n")
         }
     }
 }
