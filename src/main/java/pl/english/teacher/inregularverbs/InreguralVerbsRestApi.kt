@@ -13,6 +13,13 @@ class InreguralVerbsRestApi {
         return inregularVerbService.getAllInregularVerbs()
     }
 
+    @GetMapping("/all/random")
+    fun getAllInregularVerbsInRandomOrder(): List<InregularVerb> {
+        return inregularVerbService
+                .getAllInregularVerbs()
+                .shuffled()
+    }
+
     @PostMapping("/check")
     fun checkInregularVerb(@RequestBody inregularVerbToCheck: InregularVerb) : InregularVerb {
         // todo metoda wymaga refactoringu
