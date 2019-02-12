@@ -86,38 +86,40 @@ dependencies {
 
 }
 
-task generateDbClasses {
+tasks.register("generateDbClasses") {
+    doLast {
 // Use your favourite XML builder to construct the code generation configuration file
 // ----------------------------------------------------------------------------------
-    def writer = new StringWriter()
-    def xml = new groovy.xml.MarkupBuilder(writer)
-            .configuration('xmlns': 'http://www.jooq.org/xsd/jooq-codegen-3.11.0.xsd') {
-        jdbc() {
-            driver('com.mysql.cj.jdbc.Driver')
-            url('jdbc:mysql://localhost:3306/english_teacher')
-            user('root')
-            password('')
-        }
-        generator() {
-            database() {
+        def writer = new StringWriter()
+        def xml = new groovy.xml.MarkupBuilder(writer)
+                .configuration('xmlns': 'http://www.jooq.org/xsd/jooq-codegen-3.11.0.xsd') {
+            jdbc() {
+                driver('com.mysql.cj.jdbc.Driver')
+                url('jdbc:mysql://localhost:3306/english_teacher')
+                user('root')
+                password('')
             }
+            generator() {
+                database() {
+                }
 
-            // Watch out for this caveat when using MarkupBuilder with "reserved names"
-            // - https://github.com/jOOQ/jOOQ/issues/4797
-            // - http://stackoverflow.com/a/11389034/521799
-            // - https://groups.google.com/forum/#!topic/jooq-user/wi4S9rRxk4A
-            generate([:]) {
-                pojos true
-                daos true
-            }
-            target() {
-                packageName('pl.english.teacher.generated')
-                directory('src/main/java')
+                // Watch out for this caveat when using MarkupBuilder with "reserved names"
+                // - https://github.com/jOOQ/jOOQ/issues/4797
+                // - http://stackoverflow.com/a/11389034/521799
+                // - https://groups.google.com/forum/#!topic/jooq-user/wi4S9rRxk4A
+                generate([:]) {
+                    pojos true
+                    daos true
+                }
+                target() {
+                    packageName('pl.english.teacher.generated')
+                    directory('src/main/java')
+                }
             }
         }
-    }
 
 // Run the code generator
 // ----------------------
-    org.jooq.codegen.GenerationTool.generate(writer.toString())
+        org.jooq.codegen.GenerationTool.generate(writer.toString())
+    }
 }
