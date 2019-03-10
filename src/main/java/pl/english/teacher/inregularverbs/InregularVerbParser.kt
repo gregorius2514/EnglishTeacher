@@ -4,7 +4,8 @@ import pl.english.teacher.CsvParser
 import java.io.FileReader
 import java.nio.file.Path
 
-class InregularVerbParser(val csvSeparator: String) : CsvParser<InregularVerb> {
+// fixme uwspojnic separatory by byly jednolie np. uzyc ';'
+class InregularVerbParser(private val csvSeparator: String = ",") : CsvParser<InregularVerb> {
 
     override fun parseFile(csvFilePath: Path): List<InregularVerb> {
         FileReader(csvFilePath.toFile()).use { inregularVerbFile ->

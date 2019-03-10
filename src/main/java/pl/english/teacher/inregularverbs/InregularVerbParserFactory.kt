@@ -5,11 +5,6 @@ import pl.english.teacher.CsvParserFactory
 class InregularVerbParserFactory : CsvParserFactory<InregularVerbParser> {
 
     override fun createParser(): InregularVerbParser {
-        return InregularVerbParser(csvSeparator())
+        return InregularVerbParser()
     }
-
-    override fun csvSeparator(): String {
-        return ","
-    }
-
 }
