@@ -18,9 +18,6 @@ class EnglishWordsApi {
 
     @PutMapping("/add")
     fun addEnglishWord(@RequestBody englishWord: EnglishWord): List<EnglishWord> {
-        require(englishWord.word != null && englishWord.translation != null) {
-            "Expected non-null word and translation"
-        }
         return englishWordService.storeWord(englishWord)
     }
 
