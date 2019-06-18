@@ -14,7 +14,7 @@ import java.util.*
 // 5. mozliwosc nauki slowek, ktore sprawiaja najwiecej problemow
 // 6. tryb zaawansowany gdzie kolejnosc form (I, II, II) sa w innej kolejnosci na ekranie
 // 7. dodanie sprawdzania wprowadzonych slowek z ignore_case
-fun main(args: Array<String>) {
+fun main() {
     val inregularVerbService = InregularVerbService()
     val changedInregularVerbs = ArrayList<InregularVerb>()
     val inregularVerbs = inregularVerbService.getAllInregularVerbs()
