@@ -22,10 +22,8 @@ plugins {
     id 'nu.studer.jooq' version '3.0.2'
 }
 
-apply plugin: 'java'
 apply plugin: 'kotlin'
 apply plugin: 'kotlin-spring'
-apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'nu.studer.jooq'
@@ -70,7 +68,8 @@ dependencies {
 //    testImplementation('org.springframework.security:spring-security-test')
 //    compile group: 'org.springframework', name: 'spring-context', version: '5.1.4.RELEASE'
     compile group: 'org.springframework', name: 'spring-jdbc', version: '5.1.4.RELEASE'
-    runtime group: 'mysql', name: 'mysql-connector-java', version: '8.0.13'
+    runtime group: 'com.h2database', name: 'h2', version: '1.4.199'
+
 
     compile 'com.google.guava:guava:23.0'
     compile 'org.jsoup:jsoup:1.10.3'
@@ -93,30 +92,30 @@ tasks.register("generateDbClasses") {
         def writer = new StringWriter()
         def xml = new groovy.xml.MarkupBuilder(writer)
                 .configuration('xmlns': 'http://www.jooq.org/xsd/jooq-codegen-3.11.0.xsd') {
-            jdbc() {
-                driver('com.mysql.cj.jdbc.Driver')
-                url('jdbc:mysql://localhost:3306/english_teacher')
-                user('root')
-                password('')
-            }
-            generator() {
-                database() {
-                }
+                    jdbc() {
+                        driver('com.mysql.cj.jdbc.Driver')
+                        url('jdbc:mysql://localhost:3306/english_teacher')
+                        user('root')
+                        password('')
+                    }
+                    generator() {
+                        database() {
+                        }
 
-                // Watch out for this caveat when using MarkupBuilder with "reserved names"
-                // - https://github.com/jOOQ/jOOQ/issues/4797
-                // - http://stackoverflow.com/a/11389034/521799
-                // - https://groups.google.com/forum/#!topic/jooq-user/wi4S9rRxk4A
-                generate([:]) {
-                    pojos true
-                    daos true
+                        // Watch out for this caveat when using MarkupBuilder with "reserved names"
+                        // - https://github.com/jOOQ/jOOQ/issues/4797
+                        // - http://stackoverflow.com/a/11389034/521799
+                        // - https://groups.google.com/forum/#!topic/jooq-user/wi4S9rRxk4A
+                        generate([:]) {
+                            pojos true
+                            daos true
+                        }
+                        target() {
+                            packageName('pl.english.teacher.generated')
+                            directory('src/main/java')
+                        }
+                    }
                 }
-                target() {
-                    packageName('pl.english.teacher.generated')
-                    directory('src/main/java')
-                }
-            }
-        }
 
 // Run the code generator
 // ----------------------
