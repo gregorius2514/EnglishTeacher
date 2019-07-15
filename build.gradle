@@ -112,7 +112,7 @@ tasks.register("generateDbClasses") {
                         }
                         target() {
                             packageName('pl.english.teacher.generated')
-                            directory('src/main/kotlin')
+                            directory('src/main/java')
                         }
                     }
                 }
