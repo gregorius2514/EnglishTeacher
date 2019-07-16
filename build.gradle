@@ -12,7 +12,7 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
-        classpath 'nu.studer:gradle-jooq-plugin:3.0.2'
+        classpath 'nu.studer:gradle-jooq-plugin:3.0.3'
         classpath 'org.jooq:jooq-codegen:3.11.11'
         classpath group: 'org.postgresql', name: 'postgresql', version: '42.2.6'
 
@@ -21,7 +21,7 @@ buildscript {
 }
 
 plugins {
-    id 'nu.studer.jooq' version '3.0.2'
+    id 'nu.studer.jooq' version '3.0.3'
 }
 
 apply plugin: 'kotlin'
@@ -79,46 +79,42 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
     // jooq
-    compile 'org.jooq:jooq:3.11.11'
+    compile "org.jooq:jooq:3.11.11"
+    compile "org.jooq:jooq-meta:3.11.11"
+    compile "org.jooq:jooq-codegen:3.11.11"
     compile group: 'com.zaxxer', name: 'HikariCP', version: '3.3.0'
     compile group: 'org.postgresql', name: 'postgresql', version: '42.2.6'
+    jooqRuntime 'org.postgresql:postgresql:42.2.6'
 }
 
-tasks.register("generateDbClasses") {
-    doLast {
-// Use your favourite XML builder to construct the code generation configuration file
-// ----------------------------------------------------------------------------------
-        def writer = new StringWriter()
-        def xml = new groovy.xml.MarkupBuilder(writer)
-                .configuration('xmlns': 'http://www.jooq.org/xsd/jooq-codegen-3.11.0.xsd') {
-                    jdbc() {
-                        driver('org.postgresql.Driver')
-                        url('jdbc:postgresql://localhost:5432/english_teacher')
-                        user('english_teacher')
-                        password('english_teacher')
-                    }
-                    generator() {
-                        database() {
-                            tableValuedFunctions("false")
-                        }
-
-                        // Watch out for this caveat when using MarkupBuilder with "reserved names"
-                        // - https://github.com/jOOQ/jOOQ/issues/4797
-                        // - http://stackoverflow.com/a/11389034/521799
-                        // - https://groups.google.com/forum/#!topic/jooq-user/wi4S9rRxk4A
-                        generate([:]) {
-                            pojos true
-                            daos true
-                        }
-                        target() {
-                            packageName('pl.english.teacher.generated')
-                            directory('src/main/java')
-                        }
-                    }
-                }
-
-// Run the code generator
-// ----------------------
-        org.jooq.codegen.GenerationTool.generate(writer.toString())
+jooq {
+    version = '3.11.11'
+    edition = 'OSS'
+    sample(sourceSets.main) {
+        jdbc {
+            driver = 'org.postgresql.Driver'
+            url = 'jdbc:postgresql://localhost:5432/english_teacher'
+            user = 'english_teacher'
+            password = 'english_teacher'
+        }
+        generator {
+            name = 'org.jooq.codegen.DefaultGenerator'
+            strategy {
+                name = 'org.jooq.codegen.DefaultGeneratorStrategy'
+            }
+            database {
+                name = 'org.jooq.meta.postgres.PostgresDatabase'
+            }
+            generate {
+                relations = true
+                deprecated = false
+                records = true
+                immutablePojos = true
+                fluentSetters = true
+            }
+            target {
+                packageName = 'pl.english.teacher.generated'
+            }
+        }
     }
 }
