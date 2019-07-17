@@ -104,13 +104,10 @@ jooq {
             }
             database {
                 name = 'org.jooq.meta.postgres.PostgresDatabase'
+                includes = ".*"
+                inputSchema = 'public'
             }
             generate {
-                relations = true
-                deprecated = false
-                records = true
-                immutablePojos = true
-                fluentSetters = true
             }
             target {
                 packageName = 'pl.english.teacher.generated'
