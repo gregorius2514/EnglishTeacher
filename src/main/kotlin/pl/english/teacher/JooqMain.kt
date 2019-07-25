@@ -23,10 +23,18 @@ fun main() {
     DSL.using(hikariDataSource, SQLDialect.POSTGRES).let { dslContext ->
         dslContext.fetch("select * from account")
         
-        dslContext.insertInto(ACCOUNT, ACCOUNT.USER_ID, ACCOUNT.USERNAME, ACCOUNT.PASSWORD, ACCOUNT.EMAIL, ACCOUNT.CREATED_ON)
-                .values(100, "admin", "admin", "admin@o2.pl", Timestamp(System.currentTimeMillis()))
-                .execute()
-
-        dslContext.fetch("select * from account")
+//        dslContext.insertInto(ACCOUNT, ACCOUNT.USER_ID, ACCOUNT.USERNAME, ACCOUNT.PASSWORD, ACCOUNT.EMAIL, ACCOUNT.CREATED_ON)
+//                .values(101, "admin2", "admin2", "admin2@o2.pl", Timestamp(System.currentTimeMillis()))
+//                .execute()
+//
+//        dslContext.fetch("select * from account")
+        
+        val accounts = dslContext.selectFrom(ACCOUNT).fetch()
+        
+        accounts.forEach{a -> 
+            
+        println("${a}")
+        }
+                
     }
 }
